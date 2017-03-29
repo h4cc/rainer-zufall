@@ -30,4 +30,8 @@ use Mix.Config
 #     import_config "#{Mix.env}.exs"
 
 # Change the vindinium url if needed.
-#config :vindinium, api_url: "http://vindinium.example.com/api/"
+#config :vindinium, api_url: "http://vindinium.elixir.hamburg/api/"
+
+config :logger, :console,
+  format: "$time $metadata[$level] $levelpad$message\n"
+  #metadata: [:user_id]

@@ -8,11 +8,13 @@ defmodule Vindinium do
   end
 
   def start_game(secret, :training, turns) when is_integer(turns) do
-    Vindinium.Client.post!(api_url("training"), {:form, [{:key, secret}, {:turns, turns}]}).body
+    IO.puts "\nStarting new training game... "
+    Vindinium.Client.post!(api_url("training"), {:form, [{:key, secret}, {:turns, turns}]}, [], [timeout: 1_000, recv_timeout: 60_000]).body
   end
 
   def start_game(secret, :arena, _turns) do
-    Vindinium.Client.post!(api_url("arena"), {:form, [{:key, secret}]}, [timeout: 10000]).body
+    IO.puts "\nStarting new ARENA game... "
+    Vindinium.Client.post!(api_url("arena"), {:form, [{:key, secret}]}, [], [timeout: 1_000, recv_timeout: 60_000]).body
   end
 
   def move(%{"game" => %{"finished" => true}} = state, _secret, _bot) do
@@ -28,7 +30,6 @@ defmodule Vindinium do
   end
 
   def move(state, secret, bot) do
-    IO.write(".")
     Vindinium.Client.post!(state["playUrl"], {:form, [{:key, secret}, {:dir, bot.move(state)}]}).body
     |> move(secret, bot)
   end

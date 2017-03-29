@@ -6,4 +6,4 @@
   _ -> throw "Usage: elixir script/vindinium <key> <[training|arena]> <number-of-turns>"
 end
 
-Vindinium.start(secret, mode, rounds, Vindinium.Bots.Random)
+Vindinium.start(secret, mode, rounds, Vindinium.Bots.RainerZufall)
